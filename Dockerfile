@@ -14,6 +14,10 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip
 
+# Install FTP extension (run as root user)
+RUN apt-get update && apt-get install -y libssh2-1-dev libssl-dev && \
+    docker-php-ext-install ftp
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -39,4 +43,5 @@ WORKDIR /var/www
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
+# Switch to non-root user
 USER $user
