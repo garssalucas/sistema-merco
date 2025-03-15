@@ -41,7 +41,7 @@ class ProdutoOryonController extends Controller
         if ($filesystem->has($ftpFile)) {
             $content = $filesystem->read($ftpFile);
             // Garante que o conteúdo esteja em UTF-8 para evitar problemas com acentos
-            $content = mb_convert_encoding($content, 'UTF-8', 'auto');
+            $content = utf8_encode($content);
             
             $lines = explode("\n", $content);
             array_shift($lines);
